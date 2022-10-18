@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas ref="Canvas" id="canvas" width="350" height="350" @mousedown="startPainting" @mouseup="finishedPainting" @mousemove="draw" @touchstart="startTouchPainting" @touchmove="drawTouch" @touchend="finishedPainting">
+    <canvas ref="Canvas" id="canvas" width="350" height="350">
     </canvas>
     <button @click="weave()" v-show="!d">開始紡織(Start Weaving)</button>
     <button @click="clear()" v-show="q">清除(Clear)</button>
@@ -164,10 +164,110 @@ export default {
     left: 0;
   }
 
+  @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200,900');
+
+  * {
+    box-sizing: border-box;
+  }
+
   button {
-    position: relative;
+    position:relative;
     z-index: 2;
     font-size: 22px;
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: "Source Code Pro";
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: purple;
+    background-color: #9f9;
+    box-shadow: gray 2px 2px 22px;
+    border-radius: 4px;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  button:focus {
+    outline-color: transparent;
+    box-shadow: blue 2px 2px 22px;
+  }
+
+  .right::after, button::after {
+    content: purple;
+    display: block;
+    position: absolute;
+    white-space: nowrap;
+    padding: 40px 40px;
+    pointer-events:none;
+  }
+
+  button::after{
+    font-weight: 200;
+    top: -30px;
+    left: -20px;
+  }
+
+  .right, .left {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+  }
+  .right {
+    left: 66%;
+  }
+  .left {
+    right: 66%;
+  }
+  .right::after {
+    top: -30px;
+    left: calc(-66% - 20px);
+    background-color: blue;
+    color:transparent;
+    transition: transform .4s ease-out;
+    transform: translate(0, -90%) rotate(0deg)
+  }
+
+  button:hover .right::after {
+    transform: translate(0, -47%) rotate(0deg)
+  }
+
+  button .right:hover::after {
+    transform: translate(0, -50%) rotate(-7deg)
+  }
+
+  button .left:hover ~ .right::after {
+    transform: translate(0, -50%) rotate(7deg)
+  }
+
+  /* bubbles */
+  button::before {
+    content: '';
+    pointer-events: none;
+    opacity: .6;
+    background:
+      radial-gradient(circle at 20% 35%,  transparent 0,  transparent 2px, black 3px, blue 4px, transparent 4px),
+      radial-gradient(circle at 75% 44%, transparent 0,  transparent 2px, black 3px, blue 4px, transparent 4px),
+      radial-gradient(circle at 46% 52%, transparent 0, transparent 4px, black 5px, blue 6px, transparent 6px);
+
+    width: 100%;
+    height: 300%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    animation: bubbles 5s linear infinite both;
+  }
+
+  @keyframes bubbles {
+    from {
+      transform: translate();
+    }
+    to {
+      transform: translate(0, -66.666%);
+    }
   }
 
 </style>

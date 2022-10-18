@@ -50,16 +50,16 @@ export default {
       this.d = true
       this.k = 5
       this.h = 5
-      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2 - 50) {
+      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2 - 20) {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
           this.drawH(window.innerHeight - this.h - 50, true)
-          await delay(0.5)
+          await delay(1)
         }
         if (this.h < window.innerWidth / 2) {
           this.drawL(this.h)
           this.drawL(window.innerWidth - this.h, true)
-          await delay(0.5)
+          await delay(1)
         }
       }
       this.q = true
@@ -101,7 +101,7 @@ export default {
           this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
           this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
           this.ctx.stroke()
-          await delay(0.0025)
+          await delay(0.005)
           t += 10
         }
       } else {
@@ -124,7 +124,7 @@ export default {
           this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
           this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
           this.ctx.stroke()
-          await delay(0.0025)
+          await delay(0.005)
           t -= 10
         }
       }

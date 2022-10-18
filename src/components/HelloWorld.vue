@@ -146,12 +146,12 @@ export default {
         this.ctx.strokeStyle = this.ctx.fillStyle
         delta += Math.floor(Math.random() * 5) - 2
         this.ctx.beginPath()
-        this.ctx.moveTo(t, delta + (bk ? window.innerHeight - h : h))
-        this.ctx.lineTo(t + 10, delta + (bk ? window.innerHeight - h : h))
+        this.ctx.moveTo(bk ? window.innerWidth - t : t, delta + h)
+        this.ctx.lineTo(bk ? window.innerWidth - t : t + 10, delta + h)
         this.ctx.stroke()
         this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 5) + t, getRandomInt(0, 5) + delta + (bk ? window.innerHeight - h : h))
-        this.ctx.lineTo(getRandomInt(0, 5) + t + 10, getRandomInt(0, 5) + delta + (bk ? window.innerHeight - h : h))
+        this.ctx.moveTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t), getRandomInt(0, 5) + delta + h)
+        this.ctx.lineTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t) + 10, getRandomInt(0, 5) + delta + h)
         this.ctx.stroke()
         await delay(0.005)
         t += 10

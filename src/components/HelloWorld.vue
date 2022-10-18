@@ -124,7 +124,7 @@ export default {
         await delay(0.005)
         t += 10
       }
-      this.h += 40
+      this.h += 30
     },
     startPainting (e) {
       this.painting = true

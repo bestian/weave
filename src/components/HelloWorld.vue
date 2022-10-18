@@ -81,8 +81,8 @@ export default {
       this.ctx.lineCap = 'round'
       var t = 0
       var delta = 0
-      delta += Math.floor(Math.random() * 5) - 2
       while (t < window.innerHeight) {
+        delta += Math.floor(Math.random() * 9) - 4
         this.ctx.beginPath()
         this.ctx.moveTo(delta + k, t)
         this.ctx.lineTo(delta + k, t + 10)
@@ -111,8 +111,8 @@ export default {
       this.ctx.lineCap = 'round'
       var t = -20
       var delta = 0
-      delta += Math.floor(Math.random() * 5) - 2
       while (t < window.innerWidth) {
+        delta += Math.floor(Math.random() * 9) - 4
         this.ctx.beginPath()
         this.ctx.moveTo(t, delta + h)
         this.ctx.lineTo(t + 10, delta + h)

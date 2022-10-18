@@ -108,14 +108,16 @@ export default {
       }
     },
     async drawH (h) {
-      const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
+      const randomColor = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
       this.ctx.lineWidth = Math.floor(Math.random() * 5) + 5
-      this.ctx.fillStyle = randomColor
-      this.ctx.strokeStyle = randomColor
       this.ctx.lineCap = 'round'
       var t = -20
       var delta = 0
       while (t < window.innerWidth) {
+        this.ctx.fillStyle = 'rgb(' + randomColor.map(function (c) {
+          return c < t ? c : c - t
+        }).join(',') + ')'
+        this.ctx.strokeStyle = this.ctx.fillStyle
         delta += Math.floor(Math.random() * 5) - 2
         this.ctx.beginPath()
         this.ctx.moveTo(t, delta + h)

@@ -57,18 +57,18 @@ export default {
       while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2) {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
-          this.drawH(window.innerHeight - this.h)
+          this.drawH(window.innerHeight - this.h, true)
           await delay(1)
         }
         if (this.h < window.innerWidth / 2) {
           this.drawL(this.h)
-          this.drawL(window.innerWidth - this.h)
+          this.drawL(window.innerWidth - this.h, true)
           await delay(1)
         }
       }
       this.q = true
     },
-    async drawL (k) {
+    async drawL (k, bk) {
       k -= 40
       // const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
       this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
@@ -85,29 +85,55 @@ export default {
       this.ctx.lineCap = 'round'
       var t = 0
       var delta = 0
-      while (t < window.innerHeight) {
-        delta += Math.floor(Math.random() * 5) - 2
-        this.ctx.beginPath()
-        this.ctx.moveTo(delta + k, t)
-        this.ctx.lineTo(delta + k, t + 10)
-        this.ctx.stroke()
-        this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t)
-        this.ctx.lineTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t + 10)
-        this.ctx.stroke()
-        this.ctx.beginPath()
-        this.ctx.moveTo(delta + k + 20, t)
-        this.ctx.lineTo(delta + k + 20, t + 10)
-        this.ctx.stroke()
-        this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
-        this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
-        this.ctx.stroke()
-        await delay(0.005)
-        t += 10
+      if (!bk) {
+        t = 0
+        while (t < window.innerHeight) {
+          delta += Math.floor(Math.random() * 5) - 2
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k, t)
+          this.ctx.lineTo(delta + k, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t)
+          this.ctx.lineTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + 20, t)
+          this.ctx.lineTo(delta + k + 20, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
+          this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
+          this.ctx.stroke()
+          await delay(0.005)
+          t += 10
+        }
+      } else {
+        t = window.innerHeight
+        while (t > 0) {
+          delta += Math.floor(Math.random() * 5) - 2
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k, t)
+          this.ctx.lineTo(delta + k, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t)
+          this.ctx.lineTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + 20, t)
+          this.ctx.lineTo(delta + k + 20, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
+          this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
+          this.ctx.stroke()
+          await delay(0.005)
+          t -= 10
+        }
       }
     },
-    async drawH (h) {
+    async drawH (h, bk) {
       const randomColor = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
       this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
       this.ctx.lineCap = 'round'
@@ -120,12 +146,12 @@ export default {
         this.ctx.strokeStyle = this.ctx.fillStyle
         delta += Math.floor(Math.random() * 5) - 2
         this.ctx.beginPath()
-        this.ctx.moveTo(t, delta + h)
-        this.ctx.lineTo(t + 10, delta + h)
+        this.ctx.moveTo(t, delta + bk ? window.innerHeight - h : h)
+        this.ctx.lineTo(t + 10, delta + bk ? window.innerHeight - h : h)
         this.ctx.stroke()
         this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 5) + t, getRandomInt(0, 5) + delta + h)
-        this.ctx.lineTo(getRandomInt(0, 5) + t + 10, getRandomInt(0, 5) + delta + h)
+        this.ctx.moveTo(getRandomInt(0, 5) + t, getRandomInt(0, 5) + delta + bk ? window.innerHeight - h : h)
+        this.ctx.lineTo(getRandomInt(0, 5) + t + 10, getRandomInt(0, 5) + delta + bk ? window.innerHeight - h : h)
         this.ctx.stroke()
         await delay(0.005)
         t += 10

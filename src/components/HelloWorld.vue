@@ -54,12 +54,12 @@ export default {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
           this.drawH(window.innerHeight - this.h - 50, true)
-          await delay(1)
+          await delay(0.5)
         }
         if (this.h < window.innerWidth / 2) {
           this.drawL(this.h)
           this.drawL(window.innerWidth - this.h, true)
-          await delay(1)
+          await delay(0.5)
         }
       }
       this.q = true
@@ -101,7 +101,7 @@ export default {
           this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
           this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
           this.ctx.stroke()
-          await delay(0.005)
+          await delay(0.0025)
           t += 10
         }
       } else {
@@ -124,7 +124,7 @@ export default {
           this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
           this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
           this.ctx.stroke()
-          await delay(0.005)
+          await delay(0.0025)
           t -= 10
         }
       }
@@ -149,10 +149,23 @@ export default {
         this.ctx.moveTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t), getRandomInt(0, 5) + delta + h)
         this.ctx.lineTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t) + 10, getRandomInt(0, 5) + delta + h)
         this.ctx.stroke()
-        await delay(0.005)
+        this.ctx.fillStyle = 'rgb(' + randomColor.map(function (c) {
+          return c < t / 10 ? c : c - t / 10
+        }).join(',') + ')'
+        this.ctx.strokeStyle = this.ctx.fillStyle
+        delta += Math.floor(Math.random() * 5) - 2
+        this.ctx.beginPath()
+        this.ctx.moveTo(bk ? window.innerWidth - t : t, delta + 20 + h)
+        this.ctx.lineTo(bk ? window.innerWidth - t : t + 10, delta + 20 + h)
+        this.ctx.stroke()
+        this.ctx.beginPath()
+        this.ctx.moveTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t), getRandomInt(0, 5) + delta + 20 + h)
+        this.ctx.lineTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t) + 10, getRandomInt(0, 5) + delta + 20 + h)
+        this.ctx.stroke()
+        await delay(0.0025)
         t += 10
       }
-      this.h += 30
+      this.h += 40
     },
     startPainting (e) {
       this.painting = true

@@ -185,7 +185,18 @@ export default {
           return c < t / 10 ? c : c - t / 10
         }).join(',') + ')'
         this.ctx.strokeStyle = this.ctx.fillStyle
-        delta += Math.floor(Math.random() * 5) - 2
+        this.ctx.beginPath()
+        this.ctx.moveTo(bk ? window.innerWidth - t : t, delta + 20 + h)
+        this.ctx.lineTo(bk ? window.innerWidth - t : t + 10, delta + 20 + h)
+        this.ctx.stroke()
+        this.ctx.beginPath()
+        this.ctx.moveTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t), getRandomInt(0, 5) + delta + 10 + h)
+        this.ctx.lineTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t) + 10, getRandomInt(0, 5) + delta + 10 + h)
+        this.ctx.stroke()
+        this.ctx.fillStyle = 'rgb(' + randomColor.map(function (c) {
+          return c < t / 10 ? c : c - t / 10
+        }).join(',') + ')'
+        this.ctx.strokeStyle = this.ctx.fillStyle
         this.ctx.beginPath()
         this.ctx.moveTo(bk ? window.innerWidth - t : t, delta + 20 + h)
         this.ctx.lineTo(bk ? window.innerWidth - t : t + 10, delta + 20 + h)
@@ -193,6 +204,18 @@ export default {
         this.ctx.beginPath()
         this.ctx.moveTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t), getRandomInt(0, 5) + delta + 20 + h)
         this.ctx.lineTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t) + 10, getRandomInt(0, 5) + delta + 20 + h)
+        this.ctx.stroke()
+        this.ctx.fillStyle = 'rgb(' + randomColor.map(function (c) {
+          return c < t / 10 ? c : c - t / 10
+        }).join(',') + ')'
+        this.ctx.strokeStyle = this.ctx.fillStyle
+        this.ctx.beginPath()
+        this.ctx.moveTo(bk ? window.innerWidth - t : t, delta + 20 + h)
+        this.ctx.lineTo(bk ? window.innerWidth - t : t + 10, delta + 20 + h)
+        this.ctx.stroke()
+        this.ctx.beginPath()
+        this.ctx.moveTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t), getRandomInt(0, 5) + delta + 30 + h)
+        this.ctx.lineTo(getRandomInt(0, 5) + (bk ? window.innerWidth - t : t) + 10, getRandomInt(0, 5) + delta + 30 + h)
         this.ctx.stroke()
         await delay(0.005)
         t += 10

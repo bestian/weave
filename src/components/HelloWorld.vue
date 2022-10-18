@@ -54,8 +54,8 @@ export default {
         await delay(0.2)
       } */
       this.h = 5
-      while (this.h < window.innerWidth / 2 || this.h < 40 + window.innerHeight / 2) {
-        if (this.h < 40 + window.innerHeight / 2) {
+      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2) {
+        if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
           this.drawH(window.innerHeight - this.h)
           await delay(1)
@@ -92,16 +92,16 @@ export default {
         this.ctx.lineTo(delta + k, t + 10)
         this.ctx.stroke()
         this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 2) + delta + k, getRandomInt(0, 2) + t)
-        this.ctx.lineTo(getRandomInt(0, 2) + delta + k, getRandomInt(0, 2) + t + 10)
+        this.ctx.moveTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t)
+        this.ctx.lineTo(getRandomInt(0, 5) + delta + k, getRandomInt(0, 5) + t + 10)
         this.ctx.stroke()
         this.ctx.beginPath()
         this.ctx.moveTo(delta + k + 20, t)
         this.ctx.lineTo(delta + k + 20, t + 10)
         this.ctx.stroke()
         this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 2) + delta + k + 20, getRandomInt(0, 2) + t)
-        this.ctx.lineTo(getRandomInt(0, 2) + delta + k + 20, getRandomInt(0, 2) + t + 10)
+        this.ctx.moveTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t)
+        this.ctx.lineTo(getRandomInt(0, 5) + delta + k + 20, getRandomInt(0, 5) + t + 10)
         this.ctx.stroke()
         await delay(0.005)
         t += 10
@@ -124,8 +124,8 @@ export default {
         this.ctx.lineTo(t + 10, delta + h)
         this.ctx.stroke()
         this.ctx.beginPath()
-        this.ctx.moveTo(getRandomInt(0, 2) + t, getRandomInt(0, 2) + delta + h)
-        this.ctx.lineTo(getRandomInt(0, 2) + t + 10, getRandomInt(0, 2) + delta + h)
+        this.ctx.moveTo(getRandomInt(0, 5) + t, getRandomInt(0, 5) + delta + h)
+        this.ctx.lineTo(getRandomInt(0, 5) + t + 10, getRandomInt(0, 5) + delta + h)
         this.ctx.stroke()
         await delay(0.005)
         t += 10

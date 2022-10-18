@@ -82,7 +82,7 @@ export default {
       var t = 0
       var delta = 0
       while (t < window.innerHeight) {
-        delta += Math.floor(Math.random() * 9) - 4
+        delta += Math.floor(Math.random() * 15) - 7
         this.ctx.beginPath()
         this.ctx.moveTo(delta + k, t)
         this.ctx.lineTo(delta + k, t + 10)
@@ -112,7 +112,7 @@ export default {
       var t = -20
       var delta = 0
       while (t < window.innerWidth) {
-        delta += Math.floor(Math.random() * 9) - 4
+        delta += Math.floor(Math.random() * 15) - 7
         this.ctx.beginPath()
         this.ctx.moveTo(t, delta + h)
         this.ctx.lineTo(t + 10, delta + h)

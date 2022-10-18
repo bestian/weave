@@ -50,7 +50,7 @@ export default {
       this.d = true
       this.k = 5
       this.h = 5
-      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2 - 20) {
+      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2) {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
           this.drawH(window.innerHeight - this.h - 50, true)

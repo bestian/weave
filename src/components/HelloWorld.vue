@@ -42,7 +42,7 @@ export default {
     this.ctx = this.canvas.getContext('2d')
 
     // Resize canvas
-    this.canvas.height = window.innerHeight - 100
+    this.canvas.height = window.innerHeight - 20
     this.canvas.width = window.innerWidth - 20
   },
   methods: {
@@ -50,10 +50,11 @@ export default {
       this.d = true
       this.k = 5
       this.h = 5
-      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2) {
+      var num = 0
+      while (num < 15 && (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2 + 40)) {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
-          this.drawH(window.innerHeight - this.h - 50, true)
+          this.drawH(window.innerHeight - this.h, true)
           await delay(1)
         }
         if (this.h < window.innerWidth / 2) {
@@ -61,6 +62,7 @@ export default {
           this.drawL(window.innerWidth - this.h, true)
           await delay(1)
         }
+        num += 1
       }
       this.q = true
     },

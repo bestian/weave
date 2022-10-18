@@ -51,17 +51,18 @@ export default {
       this.k = 5
       this.h = 5
       var num = 0
-      while (num < 15 && (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2 + 40)) {
+      while (num < 15 && (this.h < window.innerWidth / 2 + 20 || this.h < window.innerHeight / 2 + 80)) {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
           this.drawH(window.innerHeight - this.h, true)
           await delay(1)
         }
-        if (this.h < window.innerWidth / 2) {
+        if (this.h < window.innerWidth / 2 + 20) {
           this.drawL(this.h)
           this.drawL(window.innerWidth - this.h, true)
           await delay(1)
         }
+        this.h += 80
         num += 1
       }
       this.q = true
@@ -70,7 +71,7 @@ export default {
       k -= 40
       // const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
       this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
-      var gradient = this.ctx.createLinearGradient(0, 0, window.innerWidth, window.innerHeight / 2)
+      var gradient = this.ctx.createLinearGradient(0, 0, window.innerWidth - 20, window.innerHeight - 20)
       gradient.addColorStop('0', 'red')
       gradient.addColorStop('0.2', 'orange')
       gradient.addColorStop('0.3', 'yellow')
@@ -222,7 +223,6 @@ export default {
         await delay(0.005)
         t += 10
       }
-      this.h += 40
     },
     startPainting (e) {
       this.painting = true

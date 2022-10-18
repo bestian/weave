@@ -1,60 +1,71 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa" target="_blank" rel="noopener">pwa</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <canvas ref="Canvas" id="canvas" width="350" height="350">
+  </canvas>
 </template>
 
 <script>
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data () {
+    return {
+      canvas: '',
+      isDrawing: false,
+      X: '',
+      Y: ''
+    }
+  },
+  mounted () {
+    const canvas = document.querySelector('#canvas')
+    const context = canvas.getContext('2d')
+    this.canvas = context
+    canvas.addEventListener('touchstart', this.beginTouchDrawing, false)
+    canvas.addEventListener('touchmove', this.TouchDrawing, false)
+  },
+  methods: {
+    beginTouchDrawing (event) {
+      this.isDrawing = true
+      const pos = this.touchPose(event)
+      this.drawLine(pos[0], pos[1])
+      this.X = pos[0]
+      this.Y = pos[1]
+      event.preventDefault()
+    },
+    touchPose (e) {
+      if (e.touches) {
+        if (e.touches.length === 1) { // Only deal with one finger
+          const touch = e.touches[0] // Get the information for finger #1
+          return [touch.pageX - touch.target.offsetLeft, touch.pageY - touch.target.offsetTop]
+        }
+      }
+    },
+    TouchDrawing (event) {
+      if (this.isDrawing) {
+        const pose = this.touchPose(event)
+        this.drawLine(this.X, this.Y, pose[0], pose[1])
+        this.X = pose[0]
+        this.Y = pose[1]
+        event.preventDefault()
+      }
+    },
+    drawLine (X, Y, newX, newY) {
+      const ctx = this.canvas
+      ctx.lineWidth = 10
+      ctx.beginPath()
+      ctx.moveTo(X, Y)
+      ctx.lineTo(newX, newY)
+      ctx.stroke()
+      ctx.closePath()
+      ctx.lineCap = 'round'
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

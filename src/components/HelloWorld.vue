@@ -2,7 +2,7 @@
   <div>
     <canvas ref="Canvas" id="canvas" width="350" height="350">
     </canvas>
-    <button @click="weave()" v-show="!d">開始紡織(Start Weaving)</button>
+    <button @click="weave()" v-show="!d">開始紡織<br>(Start Weaving)</button>
     <button @click="clear()" v-show="q">清除(Clear)</button>
   </div>
 </template>
@@ -293,7 +293,7 @@ export default {
   button {
     position:relative;
     z-index: 2;
-    font-size: 22px;
+    font-size: 16px;
     padding: 10px 20px;
     border: none;
     background: none;

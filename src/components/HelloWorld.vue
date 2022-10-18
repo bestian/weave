@@ -54,10 +54,12 @@ export default {
         await delay(0.2)
       } */
       this.h = 5
-      while (this.h < window.innerWidth || this.h < window.innerHeight) {
+      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2) {
         this.drawH(this.h)
+        this.drawH(window.innerHeight - this.h)
         await delay(1)
         this.drawL(this.h)
+        this.drawL(window.innerWidth - this.h)
         await delay(1)
       }
       this.q = true

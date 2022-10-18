@@ -15,6 +15,10 @@ function delay (n) {
   })
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -81,10 +85,22 @@ export default {
         this.ctx.moveTo(delta + k, t)
         this.ctx.lineTo(delta + k, t + 10)
         this.ctx.stroke()
+        
+        this.ctx.beginPath()
+        this.ctx.moveTo(getRandomInt(0, 2) + delta + k, getRandomInt(0, 2) + t)
+        this.ctx.lineTo(getRandomInt(0, 2) + delta + k, getRandomInt(0, 2) + t + 10)
+        this.ctx.stroke()
+        
         this.ctx.beginPath()
         this.ctx.moveTo(delta + k + 20, t)
         this.ctx.lineTo(delta + k + 20, t + 10)
         this.ctx.stroke()
+        
+        this.ctx.beginPath()
+        this.ctx.moveTo(getRandomInt(0, 2) + delta + k + 20, getRandomInt(0, 2) + t)
+        this.ctx.lineTo(getRandomInt(0, 2) + delta + k + 20, getRandomInt(0, 2) + t + 10)
+        this.ctx.stroke()
+        
         await delay(0.005)
         t += 10
       }
@@ -99,10 +115,17 @@ export default {
       var delta = 0
       delta += Math.floor(Math.random() * 5) - 2
       while (t < window.innerWidth) {
+      
         this.ctx.beginPath()
         this.ctx.moveTo(t, delta + h)
         this.ctx.lineTo(t + 10, delta + h)
         this.ctx.stroke()
+        
+        this.ctx.beginPath()
+        this.ctx.moveTo(getRandomInt(0, 2) + t, getRandomInt(0, 2) + delta + h)
+        this.ctx.lineTo(getRandomInt(0, 2) + t + 10, getRandomInt(0, 2) + delta + h)
+        this.ctx.stroke()
+        
         await delay(0.005)
         t += 10
       }

@@ -55,12 +55,16 @@ export default {
       } */
       this.h = 5
       while (this.h < window.innerWidth / 2 || this.h < 40 + window.innerHeight / 2) {
-        this.drawH(this.h)
-        this.drawH(window.innerHeight - this.h)
-        await delay(1)
-        this.drawL(this.h)
-        this.drawL(window.innerWidth - this.h)
-        await delay(1)
+        if (this.h < 40 + window.innerHeight / 2) {
+          this.drawH(this.h)
+          this.drawH(window.innerHeight - this.h)
+          await delay(1)
+        }
+        if (this.h < window.innerWidth / 2) {
+          this.drawL(this.h)
+          this.drawL(window.innerWidth - this.h)
+          await delay(1)
+        }
       }
       this.q = true
     },

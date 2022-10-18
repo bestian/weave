@@ -115,7 +115,7 @@ export default {
       var delta = 0
       while (t < window.innerWidth) {
         this.ctx.fillStyle = 'rgb(' + randomColor.map(function (c) {
-          return c < t ? c : c - t
+          return c < t / 10 ? c : c - t / 10
         }).join(',') + ')'
         this.ctx.strokeStyle = this.ctx.fillStyle
         delta += Math.floor(Math.random() * 5) - 2

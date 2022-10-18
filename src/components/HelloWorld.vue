@@ -109,7 +109,7 @@ export default {
       this.ctx.fillStyle = randomColor
       this.ctx.strokeStyle = randomColor
       this.ctx.lineCap = 'round'
-      var t = 0
+      var t = -20
       var delta = 0
       delta += Math.floor(Math.random() * 5) - 2
       while (t < window.innerWidth) {

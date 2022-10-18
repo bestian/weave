@@ -71,7 +71,7 @@ export default {
     async drawL (k) {
       k -= 40
       // const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
-      this.ctx.lineWidth = Math.floor(Math.random() * 5) + 5
+      this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
       var gradient = this.ctx.createLinearGradient(0, 0, window.innerWidth, 0)
       gradient.addColorStop('0', 'red')
       gradient.addColorStop('0.2', 'orange')
@@ -109,7 +109,7 @@ export default {
     },
     async drawH (h) {
       const randomColor = [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]
-      this.ctx.lineWidth = Math.floor(Math.random() * 5) + 5
+      this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
       this.ctx.lineCap = 'round'
       var t = -20
       var delta = 0

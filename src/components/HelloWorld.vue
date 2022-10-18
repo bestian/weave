@@ -54,7 +54,7 @@ export default {
         await delay(0.2)
       } */
       this.h = 5
-      while (this.h < window.innerWidth / 2 || this.h < window.innerHeight / 2) {
+      while (this.h < window.innerWidth / 2 || this.h < 40 + window.innerHeight / 2) {
         this.drawH(this.h)
         this.drawH(window.innerHeight - this.h)
         await delay(1)

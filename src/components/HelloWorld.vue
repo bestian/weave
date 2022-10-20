@@ -2,6 +2,23 @@
   <div>
     <canvas ref="Canvas" id="canvas" width="350" height="350">
     </canvas>
+    <div class="ui form container center" v-show="!d">
+      <div class="inline fields">
+        <label>選取樣式：</label>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="action" v-model="action" value="cross" tabindex=0 :checked="action == 'cross'"/>
+            <label>十字</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="action" v-model="action" value="parra" tabindex=1 :checked="action == 'parra'"/>
+            <label>斜紋</label>
+          </div>
+        </div>
+      </div>
+    </div>
     <button @click="weave()" v-show="!d">開始紡織<br>(Start Weaving)</button>
     <button @click="clear()" v-show="q">清除(Clear)</button>
   </div>
@@ -26,6 +43,7 @@ export default {
   },
   data () {
     return {
+      action: 'cross',
       d: false,
       q: false,
       vueCanvas: null,
@@ -47,11 +65,43 @@ export default {
   },
   methods: {
     async weave () {
+      // console.log(this.action)
+      if (this.action === 'cross') {
+        this.weaveC()
+      }
+      if (this.action === 'parra') {
+        this.weaveP()
+      }
+    },
+    async weaveP () {
       this.d = true
       this.k = 5
       this.h = 5
-      var num = 0
-      while (num < 15 && (this.h < window.innerWidth / 2 + 20 || this.h < window.innerHeight / 2 + 80)) {
+      while (this.h < window.innerWidth || this.h < window.innerHeight / 2 + 80) {
+        if (this.h < window.innerHeight / 2) {
+          this.drawH(this.h)
+          this.drawH(window.innerHeight - this.h, true)
+          await delay(1)
+        }
+        if (this.h < window.innerWidth) {
+          this.drawF(this.h - window.innerWidth / 2)
+          this.drawF(window.innerWidth - this.h, true)
+          await delay(1)
+        }
+        if (this.h < window.innerWidth) {
+          this.drawF2(this.h + window.innerWidth / 4)
+          this.drawF2(window.innerWidth - this.h + window.innerWidth * 3 / 4, true)
+          await delay(1)
+        }
+        this.h += 80
+      }
+      this.q = true
+    },
+    async weaveC () {
+      this.d = true
+      this.k = 5
+      this.h = 5
+      while (this.h < window.innerWidth / 2 + 20 || this.h < window.innerHeight / 2 + 80) {
         if (this.h < window.innerHeight / 2) {
           this.drawH(this.h)
           this.drawH(window.innerHeight - this.h, true)
@@ -63,9 +113,138 @@ export default {
           await delay(1)
         }
         this.h += 80
-        num += 1
       }
       this.q = true
+    },
+    async drawF (k, bk) {
+      k -= 40
+      // const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
+      this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
+      var gradient = this.ctx.createLinearGradient(0, 0, window.innerWidth - 20, window.innerHeight - 20)
+      gradient.addColorStop('0', 'red')
+      gradient.addColorStop('0.2', 'orange')
+      gradient.addColorStop('0.3', 'yellow')
+      gradient.addColorStop('0.5', 'green')
+      gradient.addColorStop('0.7', 'blue')
+      gradient.addColorStop('0.9', '#4B0082')
+      gradient.addColorStop('1.0', 'purple')
+      this.ctx.fillStyle = gradient
+      this.ctx.strokeStyle = gradient
+      this.ctx.lineCap = 'round'
+      var t = 0
+      var delta = 0
+      if (!bk) {
+        t = 0
+        while (t < window.innerHeight) {
+          delta += Math.floor(Math.random() * 3) - 1
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + t, t)
+          this.ctx.lineTo(delta + k + t, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 2) + delta + k + t, getRandomInt(0, 2) + t)
+          this.ctx.lineTo(getRandomInt(0, 2) + delta + k + t, getRandomInt(0, 2) + t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + t + 30, t)
+          this.ctx.lineTo(delta + k + t + 30, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 5) + delta + k + t + 30, getRandomInt(0, 5) + t)
+          this.ctx.lineTo(getRandomInt(0, 5) + delta + k + t + 30, getRandomInt(0, 5) + t + 10)
+          this.ctx.stroke()
+          await delay(0.005)
+          t += 10
+        }
+      } else {
+        t = window.innerHeight
+        while (t > 0) {
+          delta += Math.floor(Math.random() * 3) - 1
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + t, t)
+          this.ctx.lineTo(delta + k + t, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 2) + delta + k + t, getRandomInt(0, 2) + t)
+          this.ctx.lineTo(getRandomInt(0, 2) + delta + k + t, getRandomInt(0, 2) + t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + t + 30, t)
+          this.ctx.lineTo(delta + k + t + 30, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 2) + delta + k + t + 30, getRandomInt(0, 2) + t)
+          this.ctx.lineTo(getRandomInt(0, 2) + delta + k + t + 30, getRandomInt(0, 2) + t + 10)
+          this.ctx.stroke()
+          await delay(0.005)
+          t -= 10
+        }
+      }
+    },
+    async drawF2 (k, bk) {
+      k -= 40
+      // const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
+      this.ctx.lineWidth = Math.floor(Math.random() * 3) + 3
+      var gradient = this.ctx.createLinearGradient(0, 0, window.innerWidth - 20, window.innerHeight - 20)
+      gradient.addColorStop('0', 'red')
+      gradient.addColorStop('0.2', 'orange')
+      gradient.addColorStop('0.3', 'yellow')
+      gradient.addColorStop('0.5', 'green')
+      gradient.addColorStop('0.7', 'blue')
+      gradient.addColorStop('0.9', '#4B0082')
+      gradient.addColorStop('1.0', 'purple')
+      this.ctx.fillStyle = gradient
+      this.ctx.strokeStyle = gradient
+      this.ctx.lineCap = 'round'
+      var t = 0
+      var delta = 0
+      if (!bk) {
+        t = 0
+        while (t < window.innerHeight) {
+          delta += Math.floor(Math.random() * 3) - 1
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k - t, t)
+          this.ctx.lineTo(delta + k - t, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 2) + delta + k - t, getRandomInt(0, 2) + t)
+          this.ctx.lineTo(getRandomInt(0, 2) + delta + k - t, getRandomInt(0, 2) + t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k - t + 30, t)
+          this.ctx.lineTo(delta + k - t + 30, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 5) + delta + k - t + 30, getRandomInt(0, 5) + t)
+          this.ctx.lineTo(getRandomInt(0, 5) + delta + k - t + 30, getRandomInt(0, 5) + t + 10)
+          this.ctx.stroke()
+          await delay(0.005)
+          t += 10
+        }
+      } else {
+        t = window.innerHeight
+        while (t > 0) {
+          delta += Math.floor(Math.random() * 3) - 1
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k + t, t)
+          this.ctx.lineTo(delta + k + t, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 2) + delta + k - t, getRandomInt(0, 2) + t)
+          this.ctx.lineTo(getRandomInt(0, 2) + delta + k - t, getRandomInt(0, 2) + t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(delta + k - t + 30, t)
+          this.ctx.lineTo(delta + k - t + 30, t + 10)
+          this.ctx.stroke()
+          this.ctx.beginPath()
+          this.ctx.moveTo(getRandomInt(0, 2) + delta + k - t + 30, getRandomInt(0, 2) + t)
+          this.ctx.lineTo(getRandomInt(0, 2) + delta + k - t + 30, getRandomInt(0, 2) + t + 10)
+          this.ctx.stroke()
+          await delay(0.005)
+          t -= 10
+        }
+      }
     },
     async drawL (k, bk) {
       k -= 40
@@ -277,6 +456,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1em;
+  }
+
   canvas {
     border: 3px gold ridge;
     position: absolute;
@@ -300,7 +486,6 @@ export default {
     cursor: pointer;
     font-family: "Source Code Pro";
     font-weight: 900;
-    text-transform: uppercase;
     font-size: 30px;
     color: purple;
     background-color: #9f9;

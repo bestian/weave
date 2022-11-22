@@ -4,22 +4,22 @@
     </canvas>
     <div class="ui form container center" v-show="!d">
       <div class="inline fields">
-        <label>選取樣式：</label>
+        <label>{{$t('選取樣式：')}}</label>
         <div class="field">
           <div class="ui radio checkbox">
             <input type="radio" name="action" v-model="action" value="cross" tabindex=0 :checked="action == 'cross'"/>
-            <label>十字</label>
+            <label>{{$t('十字')}}</label>
           </div>
         </div>
         <div class="field">
           <div class="ui radio checkbox">
             <input type="radio" name="action" v-model="action" value="parra" tabindex=1 :checked="action == 'parra'"/>
-            <label>斜紋</label>
+            <label>{{$t('斜紋')}}</label>
           </div>
         </div>
       </div>
     </div>
-    <button @click="weave()" v-show="!d">開始紡織<br>(Start Weaving)</button>
+    <button @click="weave()" v-show="!d">{{$t('開始紡織')}}</button>
     <button @click="clear()" v-show="q">清除(Clear)</button>
   </div>
 </template>

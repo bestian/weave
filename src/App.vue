@@ -4,6 +4,30 @@
   </div>
 </template>
 
+<script type="text/javascript">
+
+export default {
+  name: 'App',
+  data () {
+    return {
+      locale: 'zh-TW'
+    }
+  },
+  watch: {
+    locale (val) {
+      this.$i18n.locale = val
+    }
+  },
+  mounted () {
+    console.log(navigator.languages[0])
+    this.locale = navigator.languages[0] || 'zh-TW'
+    if (this.locale.indexOf('en') > -1) {
+      this.locale = 'en'
+    }
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <router-view/>
+    <div id="s">
+      <i class="globe icon" />
+      <select v-model="locale">
+        <option value="zh-TW">繁中</option>
+        <option value="zh-CN">简中</option>
+        <option value="en">English</option>
+        <option value="fr">français</option>
+      </select>
+    </div>
+    <router-view :locale="locale"/>
   </div>
 </template>
 
@@ -29,6 +38,14 @@ export default {
 </script>
 
 <style>
+
+#s {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

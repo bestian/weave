@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="hello">
     <canvas ref="Canvas" id="canvas" width="350" height="350">
     </canvas>
     <div class="ui form container center" v-show="!d">
@@ -20,7 +20,7 @@
       </div>
     </div>
     <button @click="weave()" v-show="!d">{{$t('開始紡織')}}</button>
-    <button @click="clear()" v-show="q">清除(Clear)</button>
+    <button @click="clear()" v-show="q">{{$t('清除')}}</button>
   </div>
 </template>
 
@@ -39,7 +39,8 @@ function getRandomInt (min, max) {
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+    locale: String
   },
   data () {
     return {
@@ -403,52 +404,10 @@ export default {
         t += 10
       }
     },
-    startPainting (e) {
-      this.painting = true
-      console.log(this.painting)
-      this.draw(e)
-    },
-    startTouchPainting (e) {
-      e.preventDefault()
-      this.painting = true
-      console.log(this.painting)
-      this.drawTouch(e)
-    },
-    finishedPainting () {
-      this.painting = false
-      console.log(this.painting)
-      this.ctx.beginPath()
-      this.toBlob()
-    },
-    drawTouch (e) {
-      e.preventDefault()
-      console.log(e)
-      if (!this.painting) return
-      this.ctx.lineWidth = 10
-      this.ctx.fillStyle = this.color
-      this.ctx.strokeStyle = this.color
-      this.ctx.lineCap = 'round'
-      this.ctx.lineTo(e.changedTouches[0].clientX, e.changedTouches[0].clientY)
-      this.ctx.stroke()
-      this.ctx.beginPath()
-      this.ctx.moveTo(e.changedTouches[0].clientX, e.changedTouches[0].clientY)
-    },
-    draw (e) {
-      if (!this.painting) return
-      this.ctx.lineWidth = 10
-      this.ctx.fillStyle = this.color
-      this.ctx.strokeStyle = this.color
-      this.ctx.lineCap = 'round'
-      this.ctx.lineTo(e.clientX, e.clientY)
-      this.ctx.stroke()
-      this.ctx.beginPath()
-      this.ctx.moveTo(e.clientX, e.clientY)
-    },
     clear () {
       this.d = false
       this.q = false
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-      this.finishedPainting()
     }
   }
 }
@@ -456,6 +415,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .hello {
+    padding-top: 1em;
+  }
+
   .center {
     display: flex;
     align-items: center;
@@ -464,7 +427,7 @@ export default {
   }
 
   canvas {
-    border: 3px gold ridge;
+    /* border: 3px gold ridge; */
     position: absolute;
     top: 0;
     left: 0;
